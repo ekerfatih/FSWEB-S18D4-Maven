@@ -71,8 +71,6 @@ class ApplicationPropertiesAndControllerTest {
         String serverPort = env.getProperty("server.port");
         assertThat(serverPort).isEqualTo("9000");
 
-
-
         String datasourceUrl = env.getProperty("spring.datasource.url");
         assertNotNull(datasourceUrl);
 
@@ -90,7 +88,6 @@ class ApplicationPropertiesAndControllerTest {
 
         String hibernateJdbcBind = env.getProperty("logging.level.org.hibernate.jdbc.bind");
         assertNotNull(hibernateJdbcBind);
-
     }
 
     @Test
@@ -191,9 +188,9 @@ class ApplicationPropertiesAndControllerTest {
     @DisplayName("Find by price test")
     void testFindByPrice() throws Exception {
         List<Burger> burgers = Arrays.asList(sampleBurger);
-        given(burgerDao.findByPrice(sampleBurger.getPrice().intValue())).willReturn(burgers);
+        given(burgerDao.findByPrice(sampleBurger.getPrice())).willReturn(burgers);
 
-        mockMvc.perform(get("/burger/price/{price}", sampleBurger.getPrice().intValue()))
+        mockMvc.perform(get("/burger/price/{price}", sampleBurger.getPrice()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].name", is(sampleBurger.getName())));

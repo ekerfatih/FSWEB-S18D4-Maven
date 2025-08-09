@@ -159,6 +159,7 @@ class MainTest {
         List<Burger> burgers = burgerDao.findByContent("cheese");
         assertEquals(2, burgers.size());
     }
+
     @Test
     void testImplementsBurgerDaoInterface() {
         BurgerDaoImpl burgerDaoImpl = new BurgerDaoImpl(null);
